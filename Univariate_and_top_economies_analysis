@@ -1,0 +1,55 @@
+plt.figure(figsize=(10,6))
+sns.histplot(df[str(max_year)], bins=50 , kde=True)
+plt.title("Distribution of GDP in " + str(max_year))
+plt.xlabel("GDP (Billions of U.S. dollars)")
+plt.ylabel("Frequency")
+plt.show()
+
+top_gdp = (
+    df.groupby("country")[str(max_year)]
+    .mean()
+    .sort_values(ascending=False)
+    .head(10)
+)
+
+top_gdp
+
+ 	2023
+country 	
+United States 	26,185.21
+China, People's Republic of 	19,243.97
+Japan 	4,365.98
+Germany 	4,120.24
+India 	3,820.57
+United Kingdom 	3,479.47
+France 	2,806.69
+Canada 	2,326.62
+Russian Federation 	2,136.22
+Brazil 	2,059.44
+
+dtype: float64
+
+
+plt.figure(figsize=(12, 8))
+sns.barplot(x=top_gdp.index, y=top_gdp.values, palette='viridis')
+plt.title(f'Top 10 Countries by GDP in {max_year}')
+plt.xlabel('Country')
+plt.ylabel('GDP (Billions of U.S. dollars)')
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.show()
+
+# top economiese by average GDP
+plt.figure(figsize=(12,6))
+sns.barplot(x=top_gdp.values, y=top_gdp.index)
+plt.title("Top 10 Economies by Average GDP")
+plt.xlabel("Average GDP")
+plt.ylabel("Country")
+plt.show()
+
+
+
+
+
+
+
