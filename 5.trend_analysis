@@ -1,0 +1,38 @@
+ Trend analysis over time
+
+
+df_melted = df.melt(id_vars='country', value_vars=year_columns, var_name='Year', value_name='GDP')
+
+# Convert 'Year' column to numeric type
+df_melted['Year'] = pd.to_numeric(df_melted['Year'])
+
+# Group by the new 'Year' column and sum the GDP for global trend
+global_gdp = df_melted.groupby('Year')['GDP'].sum()
+
+plt.figure(figsize=(12,6))
+sns.lineplot(x=global_gdp.index, y=global_gdp.values)
+plt.title("Global GDP Trend Over Time")
+plt.xlabel("Year")
+plt.ylabel("Total GDP")
+plt.show()
+
+
+country_name = "India" 
+
+country_df = df_melted[df_melted["country"] == country_name]
+
+plt.figure(figsize=(12,6))
+sns.lineplot(x="Year", y="GDP", data=country_df)
+plt.title(f"GDP Trend of {country_name}")
+plt.xlabel("Year")
+plt.ylabel("GDP")
+plt.show()
+
+
+
+
+
+
+
+
+
